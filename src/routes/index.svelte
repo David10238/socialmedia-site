@@ -1,4 +1,5 @@
-<div class="page">Hello World</div>
+<script lang="ts">
+</script>
 
 <style lang="scss">
   @import "src/styles/vars.scss";
