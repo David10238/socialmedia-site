@@ -1,11 +1,5 @@
-<h1>Welcome to SvelteKit</h1>
-<p>
-  Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-</p>
+<div class="page">Hello World</div>
 
 <style lang="scss">
-  $color: red;
-  p {
-    color: $color;
-  }
+  @import "src/styles/vars.scss";
 </style>

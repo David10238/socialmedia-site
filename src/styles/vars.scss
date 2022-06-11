@@ -1,0 +1,13 @@
+
+$background-color: red;
+$box-color: blue;
+$text-color : green;
+
+:global(body){
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: $background-color;
+}
