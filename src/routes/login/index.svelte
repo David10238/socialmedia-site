@@ -6,10 +6,6 @@
   async function onLogin() {
     console.log("Login " + email + password + name);
   }
-
-  async function onSignUp() {
-    console.log("Signup " + email + password + name);
-  }
 </script>
 
 <div id="login-page">
@@ -32,8 +28,9 @@
       bind:value={name}
       placeholder="Name"
     />
-    <button class="login-menu-button" on:click={onLogin}>LOGIN</button>
-    <button class="login-menu-button" on:click={onSignUp}>SIGN UP</button>
+    <button class="login-menu-button" on:click={onLogin}
+      >{name.length == 0 ? "Login" : "Signup"}</button
+    >
   </div>
 </div>
 
