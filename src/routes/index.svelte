@@ -4,11 +4,11 @@
   import { KeyStorage } from "./../api/KeyStorage";
 
   onMount(() => {
-    const keys = KeyStorage.Get();
+    const keys = KeyStorage.get();
   });
 </script>
 
-<button on:click={KeyStorage.Logout}>Logout</button>
+<button on:click={KeyStorage.logout}>Logout</button>
 
 <style lang="scss">
   @import "src/styles/vars.scss";

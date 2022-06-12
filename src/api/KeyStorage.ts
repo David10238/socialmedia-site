@@ -3,8 +3,8 @@ import type { UserKeys } from "./Models";
 let keys: UserKeys;
 let loaded = false;
 
-export const KeyStorage = {
-  Get: () => {
+export class KeyStorage {
+  static get() {
     if (!loaded) {
       const key = localStorage.getItem("user-key");
       const id = localStorage.getItem("user-id");
@@ -21,20 +21,20 @@ export const KeyStorage = {
       loaded = true;
     }
     return keys;
-  },
+  }
 
-  Set: (newKeys: UserKeys) => {
+  static set(newKeys: UserKeys) {
     keys = newKeys;
     loaded = true;
     localStorage.setItem("user-id", JSON.stringify(keys.user_id));
     localStorage.setItem("user-key", keys.user_key);
-  },
+  }
 
-  Logout: () => {
+  static logout() {
     loaded = false;
     keys = { user_id: 0, user_key: "" };
     localStorage.removeItem("user-id");
     localStorage.removeItem("user-key");
     location.href = "/login";
-  },
-};
+  }
+}

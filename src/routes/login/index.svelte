@@ -1,10 +1,17 @@
 <script>
+  import { API } from "./../../api/API";
+
   let email = "";
   let password = "";
   let name = "";
 
   async function onLogin() {
     console.log("Login " + email + password + name);
+    API.login({
+      email: email,
+      password: password,
+      name: name,
+    });
   }
 </script>
 
