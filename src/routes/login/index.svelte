@@ -5,8 +5,7 @@
   let password = "";
   let name = "";
 
-  async function onLogin() {
-    console.log("Login " + email + password + name);
+  function onLogin() {
     API.login({
       email: email,
       password: password,
@@ -25,7 +24,7 @@
     />
     <input
       class="login-menu-text"
-      type="text"
+      type="password"
       bind:value={password}
       placeholder="Password"
     />
