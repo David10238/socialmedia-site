@@ -1,6 +1,11 @@
 import { HttpCodes } from "typed-rest-client/HttpClient";
 import { KeyStorage } from "./KeyStorage";
-import type { UserCredentials, UserKeys } from "./Models";
+import type {
+  MessageRequest,
+  MessageResponse,
+  UserCredentials,
+  UserKeys,
+} from "./Models";
 
 const DOMAIN = "http://localhost:5000";
 
@@ -56,5 +61,23 @@ export class API {
     const keys: UserKeys = await res.json();
     KeyStorage.set(keys);
     location.href = "/";
+  }
+
+  static async requestMessages(
+    messageRequest: MessageRequest
+  ): Promise<MessageResponse> {
+    const res = await request(
+      HTTPMethods.PUT,
+      "/messages/request",
+      new Map<string, any>(),
+      messageRequest
+    );
+
+    if (res.status == HttpCodes.Forbidden) {
+      KeyStorage.logout();
+      return { messages: [], lowest_id: 0 };
+    }
+
+    return res.json();
   }
 }
