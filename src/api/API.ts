@@ -12,22 +12,22 @@ const DOMAIN = "http://localhost:5000";
 async function request(
   method: HTTPMethods,
   endpoint: string,
-  additionalHeaders?: Map<string, any>,
+  needsKeys: boolean,
   body?: any
 ) {
   const headers: Headers = new Headers();
   headers.append("Content-Type", "application/json");
 
-  for (const entry in additionalHeaders) {
-    headers.append(entry[0], entry[1]);
+  if (needsKeys) {
+    const keys = KeyStorage.get();
+    headers.append("User-Id", JSON.stringify(keys.user_id));
+    headers.append("User-Key", JSON.stringify(keys.user_key));
   }
 
   const info: RequestInit = {
     mode: "cors",
     method: method,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(body),
   };
 
@@ -49,7 +49,7 @@ export class API {
     const res = await request(
       HTTPMethods.PUT,
       "/user/login",
-      new Map<string, any>(),
+      false,
       credentials
     );
 
@@ -69,7 +69,7 @@ export class API {
     const res = await request(
       HTTPMethods.PUT,
       "/messages/request",
-      new Map<string, any>(),
+      true,
       messageRequest
     );
 

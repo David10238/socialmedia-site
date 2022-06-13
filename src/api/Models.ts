@@ -1,6 +1,6 @@
 export interface UserKeys {
   user_id: number;
-  user_key: string;
+  user_key: number;
 }
 
 export interface UserCredentials {

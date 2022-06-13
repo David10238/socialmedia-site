@@ -11,11 +11,11 @@ export class KeyStorage {
 
       if (key == null || key.length == 0 || id == null || id.length == 0) {
         location.href = "/login";
-        return { user_key: "", user_id: 0 };
+        return { user_key: 0, user_id: 0 };
       }
 
       keys = {
-        user_key: key,
+        user_key: JSON.parse(key),
         user_id: JSON.parse(id),
       };
       loaded = true;
@@ -27,12 +27,12 @@ export class KeyStorage {
     keys = newKeys;
     loaded = true;
     localStorage.setItem("user-id", JSON.stringify(keys.user_id));
-    localStorage.setItem("user-key", keys.user_key);
+    localStorage.setItem("user-key", JSON.stringify(keys.user_key));
   }
 
   static logout() {
     loaded = false;
-    keys = { user_id: 0, user_key: "" };
+    keys = { user_id: 0, user_key: 0 };
     localStorage.removeItem("user-id");
     localStorage.removeItem("user-key");
     location.href = "/login";
