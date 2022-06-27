@@ -1,43 +1,18 @@
 <script lang="ts">
-  import { API } from "./../api/API";
-
-  import type { MessageResponse } from "./../api/Models";
-
   import { onMount } from "svelte";
 
-  import { KeyStorage } from "./../api/KeyStorage";
+  import { KeyStorage } from "../api/KeyStorage";
+  import Wall from "../components/wall.svelte";
 
-  let messageReponse: MessageResponse = { messages: [], lowest_id: -1 };
+  let mounted = false;
 
-  onMount(async () => {
-    messageReponse = await API.requestMessages({
-      target_id: -1,
-      lowest_loaded_message: messageReponse.lowest_id,
-    });
-  });
+  onMount(() => (mounted = true));
 </script>
 
-<div class="message-wall">
-  <button on:click={KeyStorage.logout}>Logout</button>
-  {#each messageReponse.messages as message}
-    <div class="message-container">
-      {message.message}
-    </div>
-  {/each}
-</div>
+{#if mounted}
+  <Wall target_id={KeyStorage.get().user_id} search_friends={true} />
+{/if}
 
 <style lang="scss">
   @import "src/styles/vars.scss";
-  .message-wall {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .message-container {
-    background-color: $box-color;
-    color: $text-color;
-    padding: 3px;
-    width: 500px;
-    margin-top: 5px;
-  }
 </style>

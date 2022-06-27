@@ -13,6 +13,7 @@ async function request(
   method: HTTPMethods,
   endpoint: string,
   needsKeys: boolean,
+  extraHeaders: Headers,
   body?: any
 ) {
   const headers: Headers = new Headers();
@@ -21,8 +22,10 @@ async function request(
   if (needsKeys) {
     const keys = KeyStorage.get();
     headers.append("User-Id", JSON.stringify(keys.user_id));
-    headers.append("User-Key", JSON.stringify(keys.user_key));
+    headers.append("User-Key", keys.user_key);
   }
+
+  extraHeaders.forEach((k, v) => headers.append(k, v));
 
   const info: RequestInit = {
     mode: "cors",
@@ -50,6 +53,7 @@ export class API {
       HTTPMethods.PUT,
       "/user/login",
       false,
+      new Headers(),
       credentials
     );
 
@@ -70,6 +74,7 @@ export class API {
       HTTPMethods.PUT,
       "/messages/request",
       true,
+      new Headers(),
       messageRequest
     );
 

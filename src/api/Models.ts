@@ -1,6 +1,6 @@
 export interface UserKeys {
   user_id: number;
-  user_key: number;
+  user_key: string;
 }
 
 export interface UserCredentials {
@@ -19,6 +19,7 @@ export interface Message {
 export interface MessageRequest {
   target_id: number;
   lowest_loaded_message: number;
+  search_friends: boolean;
 }
 
 export interface MessageResponse {
